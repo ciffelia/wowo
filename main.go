@@ -14,6 +14,7 @@ type WakeResult struct {
 }
 
 func main() {
+	address := os.Getenv("LISTEN_ADDRESS")
 	iface := os.Getenv("INTERFACE_NAME")
 	mac := os.Getenv("MAC_ADDRESS")
 
@@ -33,5 +34,5 @@ func main() {
 
 	e.Static("/", "static")
 
-	e.Logger.Fatal(e.Start(":3000"))
+	e.Logger.Fatal(e.Start(address))
 }
