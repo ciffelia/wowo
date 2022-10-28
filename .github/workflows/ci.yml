@@ -3,30 +3,72 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  lint:
+  frontend-lint:
     runs-on: ubuntu-22.04
-
     steps:
       - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          check-latest: true
+          cache: yarn
+          cache-dependency-path: ./frontend/yarn.lock
+
+      - run: yarn install --immutable
+        working-directory: ./frontend
+
+      - run: yarn run lint
+        working-directory: ./frontend
+
+  go-lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          check-latest: true
+          cache: yarn
+          cache-dependency-path: ./frontend/yarn.lock
+
       - uses: actions/setup-go@v3
         with:
           go-version-file: ./go.mod
           check-latest: true
           cache: true
+
+      - run: yarn install --immutable
+        working-directory: ./frontend
+
+      - run: yarn run build
+        working-directory: ./frontend
+
       - run: go vet
 
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-22.04, windows-2022, macos-12]
-
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          check-latest: true
+          cache: yarn
+          cache-dependency-path: ./frontend/yarn.lock
+
       - uses: actions/setup-go@v3
         with:
           go-version-file: ./go.mod
           check-latest: true
           cache: true
+
+      - run: yarn install --immutable
+        working-directory: ./frontend
+
+      - run: yarn run build
+        working-directory: ./frontend
+
       - run: go build
