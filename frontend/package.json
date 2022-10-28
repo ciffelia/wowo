@@ -1,7 +1,6 @@
 {
   "name": "wowo-frontend",
   "private": true,
-  "type": "module",
   "source": "./src/index.html",
   "scripts": {
     "dev": "parcel",
