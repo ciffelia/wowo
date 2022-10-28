@@ -1,0 +1,14 @@
+{
+  "name": "wowo-frontend",
+  "private": true,
+  "source": "./src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "rimraf ./dist && parcel build"
+  },
+  "packageManager": "yarn@3.2.4",
+  "devDependencies": {
+    "parcel": "^2.7.0",
+    "rimraf": "^3.0.2"
+  }
+}

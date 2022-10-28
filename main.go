@@ -32,7 +32,7 @@ func main() {
 		})
 	})
 
-	e.Static("/", "static")
+	e.Static("/", "./frontend/dist")
 
 	e.Logger.Fatal(e.Start(address))
 }
