@@ -9,6 +9,9 @@
     "fix": "prettier --write ."
   },
   "packageManager": "yarn@3.2.4",
+  "dependencies": {
+    "bulma": "^0.9.4"
+  },
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.7.0",
     "parcel": "^2.7.0",
