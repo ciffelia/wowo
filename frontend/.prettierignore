@@ -2,6 +2,7 @@
 /.yarn
 /.yarnrc.yml
 /.pnp.*
+/node_modules
 
 # Parcel
 /.parcel-cache
