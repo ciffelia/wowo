@@ -1,6 +1,7 @@
 {
   "name": "wowo-frontend",
   "private": true,
+  "type": "module",
   "source": "./src/index.html",
   "scripts": {
     "dev": "parcel",
@@ -8,6 +9,7 @@
   },
   "packageManager": "yarn@3.2.4",
   "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.7.0",
     "parcel": "^2.7.0",
     "rimraf": "^3.0.2"
   }

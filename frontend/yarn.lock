@@ -752,6 +752,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@parcel/transformer-inline-string@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "@parcel/transformer-inline-string@npm:2.7.0"
+  dependencies:
+    "@parcel/plugin": 2.7.0
+  checksum: 469bfeeadcb6f09b5b0470a118baf808d2d574df9c36899af75fd6973d3dc354a0c39141872d9129cdbb28d3411173b3b85a3aa450a7a300cb218f30c3b58f5a
+  languageName: node
+  linkType: hard
+
 "@parcel/transformer-js@npm:2.7.0":
   version: 2.7.0
   resolution: "@parcel/transformer-js@npm:2.7.0"
@@ -2743,6 +2752,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "wowo-frontend@workspace:."
   dependencies:
+    "@parcel/transformer-inline-string": ^2.7.0
     parcel: ^2.7.0
     rimraf: ^3.0.2
   languageName: unknown

@@ -1,12 +1,16 @@
 package main
 
 import (
+	_ "embed"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 	"os"
 	"os/exec"
 )
+
+//go:embed frontend/dist/index.html
+var html string
 
 type WakeResult struct {
 	ExitCode int    `json:"exitCode"`
@@ -21,6 +25,10 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 
+	e.GET("/", func(c echo.Context) error {
+		return c.HTML(http.StatusOK, html)
+	})
+
 	e.POST("/api/wake", func(c echo.Context) error {
 		cmd := exec.Command("sudo", "etherwake", "-D", "-i", iface, mac)
 
@@ -28,11 +36,9 @@ func main() {
 
 		return c.JSON(http.StatusOK, &WakeResult{
 			ExitCode: cmd.ProcessState.ExitCode(),
-			Output: string(output),
+			Output:   string(output),
 		})
 	})
-
-	e.Static("/", "./frontend/dist")
 
 	e.Logger.Fatal(e.Start(address))
 }
