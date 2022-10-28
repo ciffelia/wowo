@@ -1,4 +1,4 @@
-module github.com/ciffelia/wakeMyPC
+module github.com/ciffelia/wowo
 
 go 1.19
 
