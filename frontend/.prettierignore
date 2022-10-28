@@ -1,0 +1,11 @@
+# Yarn
+/.yarn
+/.yarnrc.yml
+/.pnp.*
+
+# Parcel
+/.parcel-cache
+/dist
+
+# WebStorm
+/.idea
