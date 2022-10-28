@@ -72,3 +72,7 @@ jobs:
         working-directory: ./frontend
 
       - run: go build
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./wowo
