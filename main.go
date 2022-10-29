@@ -30,7 +30,7 @@ func main() {
 	})
 
 	e.POST("/api/wake", func(c echo.Context) error {
-		cmd := exec.Command("sudo", "etherwake", "-D", "-i", iface, mac)
+		cmd := exec.Command("etherwake", "-D", "-i", iface, mac)
 
 		output, _ := cmd.CombinedOutput()
 
