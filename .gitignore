@@ -8,5 +8,8 @@
 # Test binary, built with `go test -c`
 *.test
 
+# GoReleaser
+/dist
+
 # GoLand
 /.idea

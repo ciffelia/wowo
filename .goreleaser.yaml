@@ -1,0 +1,56 @@
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - '7'
+
+dockers:
+  - goos: linux
+    goarch: amd64
+    image_templates:
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-amd64
+    use: buildx
+    build_flag_templates:
+      - --platform=linux/amd64
+
+  - goos: linux
+    goarch: arm
+    goarm: '7'
+    image_templates:
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-armv7
+    use: buildx
+    build_flag_templates:
+      - --platform=linux/arm/v7
+
+  - goos: linux
+    goarch: arm64
+    image_templates:
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-arm64
+    use: buildx
+    build_flag_templates:
+      - --platform=linux/arm64
+
+docker_manifests:
+  - name_template: ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}
+    image_templates:
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-amd64
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-armv7
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-arm64
+
+  - name_template: ghcr.io/ciffelia/wowo:latest
+    image_templates:
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-amd64
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-armv7
+      - ghcr.io/ciffelia/wowo:git-{{ .FullCommit }}-arm64
+
+changelog:
+  skip: true
+
+release:
+  disable: true
