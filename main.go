@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -18,9 +19,20 @@ type WakeResult struct {
 }
 
 func main() {
-	address := os.Getenv("LISTEN_ADDRESS")
-	iface := os.Getenv("INTERFACE_NAME")
-	mac := os.Getenv("MAC_ADDRESS")
+	address, ok := os.LookupEnv("LISTEN_ADDRESS")
+	if !ok {
+		log.Fatal("LISTEN_ADDRESS is not set.")
+	}
+
+	iface, ok := os.LookupEnv("INTERFACE_NAME")
+	if !ok {
+		log.Fatal("INTERFACE_NAME is not set.")
+	}
+
+	mac, ok := os.LookupEnv("MAC_ADDRESS")
+	if !ok {
+		log.Fatal("MAC_ADDRESS is not set.")
+	}
 
 	e := echo.New()
 	e.Use(middleware.Logger())
