@@ -118,7 +118,7 @@ jobs:
       - name: Create a git tag required by GoRelease
         run: git tag v0.0.0
 
-      - uses: goreleaser/goreleaser-action@v2
+      - uses: goreleaser/goreleaser-action@v3
         with:
           args: release
         env:
