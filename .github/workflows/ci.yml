@@ -115,6 +115,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create a git tag required by GoRelease
+        run: git tag v0.0.0
+
       - uses: goreleaser/goreleaser-action@v2
         with:
           args: release --skip-validate
