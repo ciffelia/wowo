@@ -120,7 +120,6 @@ jobs:
 
       - uses: goreleaser/goreleaser-action@v2
         with:
-          args: release --skip-validate
+          args: release
         env:
-          GORELEASER_CURRENT_TAG: v0.0.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
