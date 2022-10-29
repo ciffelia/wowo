@@ -21,7 +21,7 @@ jobs:
       - run: yarn run lint
         working-directory: ./frontend
 
-  go-lint:
+  frontend-build:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -33,31 +33,41 @@ jobs:
           cache: yarn
           cache-dependency-path: ./frontend/yarn.lock
 
+      - run: yarn install --immutable
+        working-directory: ./frontend
+
+      - run: yarn run build
+        working-directory: ./frontend
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: frontend-dist
+          path: ./frontend/dist
+
+  go-lint:
+    needs: frontend-build
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
       - uses: actions/setup-go@v3
         with:
           go-version-file: ./go.mod
           check-latest: true
           cache: true
 
-      - run: yarn install --immutable
-        working-directory: ./frontend
-
-      - run: yarn run build
-        working-directory: ./frontend
+      - uses: actions/download-artifact@v3
+        with:
+          name: frontend-dist
+          path: ./frontend/dist
 
       - run: go vet
 
-  build:
+  go-build:
+    needs: frontend-build
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          check-latest: true
-          cache: yarn
-          cache-dependency-path: ./frontend/yarn.lock
 
       - uses: actions/setup-go@v3
         with:
@@ -65,14 +75,14 @@ jobs:
           check-latest: true
           cache: true
 
-      - run: yarn install --immutable
-        working-directory: ./frontend
-
-      - run: yarn run build
-        working-directory: ./frontend
+      - uses: actions/download-artifact@v3
+        with:
+          name: frontend-dist
+          path: ./frontend/dist
 
       - run: go build
 
       - uses: actions/upload-artifact@v3
         with:
+          name: go-build
           path: ./wowo
